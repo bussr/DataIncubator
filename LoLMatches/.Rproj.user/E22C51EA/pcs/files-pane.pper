@@ -1,0 +1,9 @@
+{
+    "path" : "~/TheDataIncubator/LoLMatches",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

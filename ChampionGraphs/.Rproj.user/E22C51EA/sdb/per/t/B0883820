@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the user-interface definition of a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\nlibrary(ggplot2)\n\n\n\nshinyUI(fluidPage(\n  \n  # Application title\n  titlePanel(\"League of Legends Champion Frequency\"),\n  \n  sidebarLayout(\n    sidebarPanel(\n      htmlOutput('selectUI'),\n      #selectizeInput('champion', 'Champion', choices=champ.names, multiple=TRUE),\n      sliderInput('minFreq', 'Minimum Champion Frequency', min=1, max= max(lol$championFreq) + 1, value=100, step=10)\n    ),\n    \n    mainPanel(\n      tabsetPanel(type='tabs',\n                  tabPanel('Champion Representation', plotOutput('freqPlot')),\n                  tabPanel('Match Outcomes', plotOutput('balanceBar'))\n      )\n    )\n  )\n\n))\n",
+    "created" : 1429744672123.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2765256221",
+    "id" : "B0883820",
+    "lastKnownWriteTime" : 1429843670,
+    "path" : "~/TheDataIncubator/ChampionGraphs/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

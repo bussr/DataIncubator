@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# LoLMatches ui.R\n# author: Ryan Buss, ryanpbuss@gmail.com\n\nlibrary(shiny)\n\nshinyUI(fluidPage(\n  \n  titlePanel(\"Game Duration Boxplot\"),\n  \n  sidebarLayout(\n    sidebarPanel(\n      helpText(\"Select Champions to be Displayed\"),\n      checkboxInput(\"ezreal\", \"Ezreal\", T),\n      checkboxInput('teemo', 'Teemo', T),\n      checkboxInput('shaco', 'Shaco', F),\n      checkboxInput('blitzcrank', 'Blitzcrank', F),\n      checkboxInput('lux', 'Lux', F),\n      checkboxInput('jax', 'Jax', F),\n      checkboxInput('zed', 'Zed', F),\n      checkboxInput('fizz', 'Fizz', F),\n      checkboxInput('nidalee', 'Nidalee', T)\n      \n    ),\n    \n    mainPanel(\n      h3(textOutput(\"caption\")),\n      \n      plotOutput(\"matchMinPlot\")\n    )\n  )\n))\n\n",
+    "created" : 1428970872389.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2808196430",
+    "id" : "BB1E6400",
+    "lastKnownWriteTime" : 1428979683,
+    "path" : "~/TheDataIncubator/LoLMatches/ui.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

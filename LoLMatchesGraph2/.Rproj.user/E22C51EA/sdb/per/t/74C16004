@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# LoLMatchesGraph2 ui.R\n# author: Ryan Buss, ryanpbuss@gmail.com\n\n\nlibrary(shiny)\n\nshinyUI(fluidPage(\n\n  titlePanel(\"League of Legends Warding Influence on Win Rate\"),\n\n  sidebarLayout(\n    sidebarPanel(\n      sliderInput(\"size\",\n                  \"Size of Points\",\n                  min = 1,\n                  max = 10,\n                  value = 3),\n      checkboxInput('lmodel', 'Linear Regression Line', F)\n    ),\n\n    mainPanel(\n      plotOutput(\"distPlot\")\n    )\n  )\n))\n",
+    "created" : 1428970684383.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "365433893",
+    "id" : "74C16004",
+    "lastKnownWriteTime" : 1428979694,
+    "path" : "~/TheDataIncubator/LoLMatchesGraph2/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

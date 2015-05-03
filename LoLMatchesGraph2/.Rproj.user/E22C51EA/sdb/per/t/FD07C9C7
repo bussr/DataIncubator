@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# LoLMatchesGraph2 server.R\n# author: Ryan Buss, ryanpbuss@gmail.com\n\n\nlibrary(shiny)\nlibrary(ggplot2)\nlibrary(plyr)\n\nlol = read.csv(\"LeagueData.csv\")\nlol$won=NA\nlol$won[which(lol$winner=='False')] = 0\nlol$won[which(lol$winner=='True')] = 1\nwinrate = ddply(lol, .(wardsPlaced), summarize, WinRate = mean(won))\nwinrate = subset(winrate, winrate$wardsPlaced < 60)\nwinrate = subset(winrate, winrate$WinRate > 0 & winrate$WinRate < 1)\n\nshinyServer(function(input, output) {\n\n  output$distPlot <- renderPlot({\n    model = lm(WinRate ~ wardsPlaced, data=winrate)\n    p = ggplot(winrate, aes(x=wardsPlaced, y=WinRate, color=WinRate)) + \n      geom_point(size=input$size) +\n      labs(title=\"Average Win Rate by Number of Wards Placed\", x=\"Wards Placed\", y=\"Win Rate\")\n    \n    if (input$lmodel){\n      p = p + geom_abline(intercept = model$coefficients[1], slope = model$coefficients[2], size=1.8, color='green', alpha=.5)}\n    \n    p\n  })\n\n})\n",
+    "created" : 1428970684527.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4007349112",
+    "id" : "FD07C9C7",
+    "lastKnownWriteTime" : 1428979618,
+    "path" : "~/TheDataIncubator/LoLMatchesGraph2/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

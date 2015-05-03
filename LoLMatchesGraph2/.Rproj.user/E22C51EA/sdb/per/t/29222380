@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# LoLMatches server.R\n# author: Ryan Buss, ryanpbuss@gmail.com\n\nlibrary(shiny)\nlibrary(ggplot2)\n\n\nlol = read.csv(\"LeagueData.csv\")\nlol$matchMin = lol$matchDuration/60\n\nshinyServer(function(input, output) {\n\n  titlePanel(\"Match Length for Selected League of Legends Champions\")\n\n  output$matchMinPlot <- renderPlot({\n    champions=c()\n    if(input$ezreal)    {champions = append(champions, 'Ezreal')}\n    if(input$teemo)     {champions = append(champions, 'Teemo')}\n    if(input$shaco)     {champions = append(champions, 'Shaco')}\n    if(input$blitzcrank){champions = append(champions, 'Blitzcrank')}\n    if(input$lux)       {champions = append(champions, 'Lux')}\n    if(input$jax)       {champions = append(champions, 'Jax')}\n    if(input$zed)       {champions = append(champions, 'Zed')}\n    if(input$fizz)      {champions = append(champions, 'Fizz')}\n    if(input$nidalee)   {champions = append(champions, 'Nidalee')}\n    lol.sub = subset(lol, lol$championName %in% champions)\n    \n    ggplot(lol.sub, aes(x=championName, y=matchMin, fill=championName)) + geom_boxplot() + labs(title='Game Duration by Champion', x=\"Champion\", y=\"Match Duration in Minutes\")\n    \n\n  })\n})",
+    "created" : 1428970867466.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1001551913",
+    "id" : "29222380",
+    "lastKnownWriteTime" : 1428979684,
+    "path" : "~/TheDataIncubator/LoLMatches/server.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

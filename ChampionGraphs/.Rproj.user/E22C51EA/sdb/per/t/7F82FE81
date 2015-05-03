@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the server logic for a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\nlibrary(ggplot2)\n\n# Load data set and champs - only run once on startup\nlol = read.csv('LeagueMatchData.csv', header=T)\nbalance = read.csv('LeagueChampionBalanceStats.csv', header=T)\nchamps = read.csv('ChampionIds.csv', header=F)\ncolnames(champs) = c('championId', 'name')\nchamps$championId = NULL\nchamp.names = champs[order(champs$name),]\n\n\n\n# actual server stuff\nshinyServer(function(input, output) {\n  \n  \n  #lol.champ <- reactive({\n  #  if (! all(input$champion %in% champs$name))\n  #    stop('Unknown Champion Selected')\n    \n  #  subset(lol, (lol$championName %in% input$champion)) # & lol$championFreq > input$minFreq)\n  #})\n  \n  \n  \n  output$selectUI <- renderUI({\n    selectizeInput('champion', 'Champion', choices=reduceChampNames(), multiple=TRUE)\n  })\n  \n  reduceChampNames <- reactive({\n    champ.names = subset(lol, lol$championFreq >= input$minFreq)\n    levels(champ.names$championName)\n    \n  })\n  \n  \n\n  output$freqPlot <- renderPlot({\n    \n    if(! is.null(input$champion)) {\n      lol.champ = subset(lol, (lol$championName %in% input$champion))\n    }\n    else {\n      lol.champ = subset(lol, lol$championName %in% c('Graves', 'Thresh', 'Morgana', 'Sona', 'Lux', 'Kayle', 'Taric'))\n    }\n    \n    \n    p = ggplot(lol.champ, aes(x=championName, fill=championName)) + \n      geom_bar() + \n      ylim(0,round(max(lol$championFreq)+10, -1)) +\n      labs(title=\"Champion Frequency in Dataset\", x=\"Champion\", y='Number of Matches Picked')\n      \n    print(p)\n    #if (length(input$champion) == 0) {\n    #  p = p + geom_blank()\n    #}\n    \n    #p\n    \n  })\n  \n  output$balanceBar <- renderPlot({\n    \n    if(! is.null(input$champion)) {\n      bal = subset(balance, (balance$Champion %in% input$champion))\n    }\n    else {\n      bal = subset(balance, balance$championName %in% c('Graves', 'Thresh', 'Morgana', 'Sona', 'Lux', 'Kayle', 'Taric'))\n    }\n    \n    p = ggplot(bal, mapping = aes(x=Champion, fill=variable, y=value)) + \n      geom_bar(stat='identity', position='dodge') +\n      ylim(0,80) +\n      labs(title='Key Match Outcome Rates by Champion', x='Champion', y='Percent of Matches') +\n      geom_hline(yintercept=50)\n      \n    \n    print(p)\n  })\n\n})\n",
+    "created" : 1429744672262.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1833964819",
+    "id" : "7F82FE81",
+    "lastKnownWriteTime" : 1429844275,
+    "path" : "~/TheDataIncubator/ChampionGraphs/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,9 @@
+{
+    "path" : "~/TheDataIncubator/DataIncubator_Fares",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
