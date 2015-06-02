@@ -10,7 +10,7 @@ Created on Sat Apr 11 11:54:53 2015
 
 
 import requests
-import io
+#import io
 import os
 import json
 import time
@@ -334,8 +334,10 @@ class LoLpy:
             for match in summoner.json()['matches']:
                 matches.add(int(match['matchId']))
             
-        except ValueError:
+        except (ValueError, KeyError):
             print('Failed to find matches for summonerId: ' + str(summonerId))
+            return(set()) #return an empty set if something goes wrong - skip that summoner
+            
             
         else:
             return(matches)
@@ -348,13 +350,13 @@ class LoLpy:
 
 def main(argv):
     
-    lol = LoLpy('3bcb84f4-416b-4ab6-b345-53c95fb3f607')
+    lol = LoLpy('3bcb84f4-416b-4ab6-b345-53c95fb3f607') #Old API Key
     filename = 'LoLScrape'
     runtime = 86400
     
     #handle arguments
     try:
-        opts, args = getopt.getopt(argv, 'hdf:r:', ["help", "debug", "filename=", "runtime="])
+        opts, args = getopt.getopt(argv, 'hdf:r:k:', ["help", "debug", "filename=", "runtime=", "key="])
     except getopt.GetOptError:
         print('LoL_Scrape.py -f filename')
         sys.exit(2)
@@ -368,7 +370,9 @@ def main(argv):
         elif opt in ('-f', '--filename'):
             filename = arg
         elif opt in ('-r', '--runtime'):
-            runtime = arg
+            runtime = int(arg)
+        elif opt in ('-k', '--key'):
+            lol.api_key = arg
             #print('filename set:', filename)
 
         
